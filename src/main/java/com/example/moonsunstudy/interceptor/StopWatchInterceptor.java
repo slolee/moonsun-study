@@ -27,7 +27,13 @@ public class StopWatchInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest req, HttpServletResponse resp, Object handler, ModelAndView modelAndView) throws Exception {
 		stopWatch.stop();
+
+		// 어떤 API 를 호출했을 때 소요시간인지까지 보여주고 싶다.
+		// EX) GET /ping - 소요시간 : 69ms
+		// GET /ping -> HTTP Request -> 객체(HttpServletRequest)
+		log.info("========= " + req.getMethod() + " " + req.getRequestURI() + " =========");
 		log.info("소요시간 : " + stopWatch.getLastTaskTimeMillis() + "ms");
+		log.info("========================");
 	}
 
 }
